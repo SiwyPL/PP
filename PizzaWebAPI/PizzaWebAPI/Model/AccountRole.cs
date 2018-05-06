@@ -10,5 +10,7 @@ namespace PizzaWebAPI.Model
         public int Id { get; set; }
         public string RoleName { get; set; }
         public bool Active { get; set; }
+        public virtual Employee_Data Employee { get; set; }
+        public virtual Account Account { get; set; }
     }
 }
