@@ -14,8 +14,9 @@ namespace PizzaWebAPI.Model
         public int Id { get; set; }
         public String Name { get; set; }
         public Decimal Price { get; set; }
-
+        public int Order_Menu_Id { get; set; }
         public virtual Menu_Items Menu_Item { get; set; }
+        [ForeignKey("Order_Menu_Id")]
         public virtual Order_Menu_Items Order_Menu_Item { get; set; }
 
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace PizzaWebAPI.Model
     [Table("Menu_Item_Ingredients")]
     public class Menu_Item_Ingredients
     {
+        [Key]
         [ForeignKey("Menu_Items")]
         public int Menu_Item_Id { get; set; }
         [ForeignKey("Ingredients")]
