@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace PizzaWebAPI.Model
 {
-    [Table("AccountRole")]
+    [Table("accounts_roles")]
     public class AccountRole
     {
         [Key]
         public int Id { get; set; }
         public string RoleName { get; set; }
         public bool Active { get; set; }
-        [ForeignKey("Employee_Data")]
-        public int Employee_Id { get; set; }
-        public virtual Employee_Data Employee { get; set; }
+        [ForeignKey("EmployeeData")]
+        public int EmployeeId { get; set; }
+        public virtual EmployeeData Employee { get; set; }
         public virtual Account Account { get; set; }
     }
 }

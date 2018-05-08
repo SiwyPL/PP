@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace PizzaWebAPI.Model
 {
-    [Table("Status")]
+    [Table("statuses")]
     public class Status
     {
         [Key]
         public int Id { get; set; }
         public String Name { get; set; }
-
-        public virtual Orders Order { get; set; }
+        public virtual Order Order { get; set; }
     }
 }
