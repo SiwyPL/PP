@@ -119,13 +119,18 @@ namespace PizzaWebAPI.Migrations
 
             modelBuilder.Entity("PizzaWebAPI.Model.MenuItem_Ingredient", b =>
                 {
-                    b.Property<int>("MenuItemId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("IngredientId");
 
-                    b.HasKey("MenuItemId");
+                    b.Property<int>("MenuItemId");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("IngredientId");
+
+                    b.HasIndex("MenuItemId");
 
                     b.ToTable("menu_items_-_ingredients");
                 });

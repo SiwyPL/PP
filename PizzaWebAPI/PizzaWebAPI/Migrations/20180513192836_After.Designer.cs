@@ -11,7 +11,7 @@ using System;
 namespace PizzaWebAPI.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    [Migration("20180513185425_After")]
+    [Migration("20180513192836_After")]
     partial class After
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -120,13 +120,18 @@ namespace PizzaWebAPI.Migrations
 
             modelBuilder.Entity("PizzaWebAPI.Model.MenuItem_Ingredient", b =>
                 {
-                    b.Property<int>("MenuItemId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("IngredientId");
 
-                    b.HasKey("MenuItemId");
+                    b.Property<int>("MenuItemId");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("IngredientId");
+
+                    b.HasIndex("MenuItemId");
 
                     b.ToTable("menu_items_-_ingredients");
                 });

@@ -182,12 +182,14 @@ namespace PizzaWebAPI.Migrations
                 name: "menu_items_-_ingredients",
                 columns: table => new
                 {
-                    MenuItemId = table.Column<int>(nullable: false),
-                    IngredientId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IngredientId = table.Column<int>(nullable: false),
+                    MenuItemId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_menu_items_-_ingredients", x => x.MenuItemId);
+                    table.PrimaryKey("PK_menu_items_-_ingredients", x => x.Id);
                     table.ForeignKey(
                         name: "FK_menu_items_-_ingredients_ingredients_IngredientId",
                         column: x => x.IngredientId,
@@ -327,6 +329,11 @@ namespace PizzaWebAPI.Migrations
                 name: "IX_menu_items_-_ingredients_IngredientId",
                 table: "menu_items_-_ingredients",
                 column: "IngredientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_items_-_ingredients_MenuItemId",
+                table: "menu_items_-_ingredients",
+                column: "MenuItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_order_menu_items_MenuItemId",
