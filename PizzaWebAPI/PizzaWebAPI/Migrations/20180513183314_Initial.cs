@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PizzaWebAPI.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,7 +28,7 @@ namespace PizzaWebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ingredients",
+                name: "ingredients",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -38,11 +38,11 @@ namespace PizzaWebAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ingredients", x => x.Id);
+                    table.PrimaryKey("PK_ingredients", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Payment_Type",
+                name: "payment_types",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -51,11 +51,11 @@ namespace PizzaWebAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Payment_Type", x => x.Id);
+                    table.PrimaryKey("PK_payment_types", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Restaurants",
+                name: "restaurants",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -69,11 +69,11 @@ namespace PizzaWebAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Restaurants", x => x.Id);
+                    table.PrimaryKey("PK_restaurants", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Status",
+                name: "statuses",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -82,25 +82,25 @@ namespace PizzaWebAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Status", x => x.Id);
+                    table.PrimaryKey("PK_statuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AccountRole",
+                name: "accounts_roles",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AccountId = table.Column<int>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
-                    Employee_Id = table.Column<int>(nullable: false),
+                    EmployeeId = table.Column<int>(nullable: false),
                     RoleName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AccountRole", x => x.Id);
+                    table.PrimaryKey("PK_accounts_roles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AccountRole_Account_AccountId",
+                        name: "FK_accounts_roles_Account_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Account",
                         principalColumn: "Id",
@@ -108,321 +108,304 @@ namespace PizzaWebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Menu_Items",
+                name: "menu_items",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Has_Ingredients = table.Column<bool>(nullable: false),
+                    HasIngredients = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    RestaurantId = table.Column<int>(nullable: true),
-                    Restaurant_Id = table.Column<int>(nullable: false)
+                    RestaurantId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Menu_Items", x => x.Id);
+                    table.PrimaryKey("PK_menu_items", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Menu_Items_Restaurants_RestaurantId",
+                        name: "FK_menu_items_restaurants_RestaurantId",
                         column: x => x.RestaurantId,
-                        principalTable: "Restaurants",
+                        principalTable: "restaurants",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employee_Data",
+                name: "employee_data",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AccountRole_Id = table.Column<int>(nullable: false),
+                    AccountRoleId = table.Column<int>(nullable: false),
                     Phone = table.Column<string>(nullable: true),
                     Position = table.Column<string>(nullable: true),
-                    RestaurantId = table.Column<int>(nullable: true),
-                    Restaurant_Id = table.Column<int>(nullable: false)
+                    RestaurantId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employee_Data", x => x.Id);
+                    table.PrimaryKey("PK_employee_data", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Employee_Data_AccountRole_AccountRole_Id",
-                        column: x => x.AccountRole_Id,
-                        principalTable: "AccountRole",
+                        name: "FK_employee_data_accounts_roles_AccountRoleId",
+                        column: x => x.AccountRoleId,
+                        principalTable: "accounts_roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Employee_Data_Restaurants_RestaurantId",
+                        name: "FK_employee_data_restaurants_RestaurantId",
                         column: x => x.RestaurantId,
-                        principalTable: "Restaurants",
+                        principalTable: "restaurants",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Menu_Item_Ingredients",
+                name: "menu_item_options",
                 columns: table => new
                 {
-                    Menu_Item_Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Ingredient_Id = table.Column<int>(nullable: false),
-                    Menu_Items_IdId = table.Column<int>(nullable: true)
+                    MenuItemId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    OrderMenuId = table.Column<int>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Menu_Item_Ingredients", x => x.Menu_Item_Id);
+                    table.PrimaryKey("PK_menu_item_options", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Menu_Item_Ingredients_Ingredients_Ingredient_Id",
-                        column: x => x.Ingredient_Id,
-                        principalTable: "Ingredients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Menu_Item_Ingredients_Menu_Items_Menu_Items_IdId",
-                        column: x => x.Menu_Items_IdId,
-                        principalTable: "Menu_Items",
+                        name: "FK_menu_item_options_menu_items_MenuItemId",
+                        column: x => x.MenuItemId,
+                        principalTable: "menu_items",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "menu_items_-_ingredients",
+                columns: table => new
+                {
+                    MenuItemId = table.Column<int>(nullable: false),
+                    IngredientId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_menu_items_-_ingredients", x => x.MenuItemId);
+                    table.ForeignKey(
+                        name: "FK_menu_items_-_ingredients_ingredients_IngredientId",
+                        column: x => x.IngredientId,
+                        principalTable: "ingredients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_menu_items_-_ingredients_menu_items_MenuItemId",
+                        column: x => x.MenuItemId,
+                        principalTable: "menu_items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "orders",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Date = table.Column<DateTime>(nullable: false),
                     EmployeeId = table.Column<int>(nullable: true),
-                    Employee_Id = table.Column<int>(nullable: false),
-                    Payment_Type_Id = table.Column<int>(nullable: false),
-                    Status_Id = table.Column<int>(nullable: false),
-                    Total_Price = table.Column<decimal>(nullable: false)
+                    PaymentTypeId = table.Column<int>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
+                    TotalPrice = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.PrimaryKey("PK_orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Employee_Data_EmployeeId",
+                        name: "FK_orders_employee_data_EmployeeId",
                         column: x => x.EmployeeId,
-                        principalTable: "Employee_Data",
+                        principalTable: "employee_data",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Orders_Payment_Type_Payment_Type_Id",
-                        column: x => x.Payment_Type_Id,
-                        principalTable: "Payment_Type",
+                        name: "FK_orders_payment_types_PaymentTypeId",
+                        column: x => x.PaymentTypeId,
+                        principalTable: "payment_types",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Orders_Status_Status_Id",
-                        column: x => x.Status_Id,
-                        principalTable: "Status",
+                        name: "FK_orders_statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "statuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order_Menu_Items",
+                name: "order_menu_items",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Count = table.Column<int>(nullable: false),
-                    Menu_ItemId = table.Column<int>(nullable: true),
-                    Menu_Item_Id = table.Column<int>(nullable: false),
-                    Menu_Item_Option_Id = table.Column<int>(nullable: false),
-                    OrderId = table.Column<int>(nullable: true),
-                    Order_Id = table.Column<int>(nullable: false)
+                    MenuItemId = table.Column<int>(nullable: false),
+                    MenuItemOptionId = table.Column<int>(nullable: false),
+                    OrderId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order_Menu_Items", x => x.Id);
+                    table.PrimaryKey("PK_order_menu_items", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Order_Menu_Items_Menu_Items_Menu_ItemId",
-                        column: x => x.Menu_ItemId,
-                        principalTable: "Menu_Items",
+                        name: "FK_order_menu_items_menu_items_MenuItemId",
+                        column: x => x.MenuItemId,
+                        principalTable: "menu_items",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Order_Menu_Items_Orders_OrderId",
+                        name: "FK_order_menu_items_menu_item_options_MenuItemOptionId",
+                        column: x => x.MenuItemOptionId,
+                        principalTable: "menu_item_options",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_order_menu_items_orders_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Menu_Item_Options",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Menu_ItemId = table.Column<int>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Order_Menu_Id = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Menu_Item_Options", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Menu_Item_Options_Menu_Items_Menu_ItemId",
-                        column: x => x.Menu_ItemId,
-                        principalTable: "Menu_Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Menu_Item_Options_Order_Menu_Items_Order_Menu_Id",
-                        column: x => x.Order_Menu_Id,
-                        principalTable: "Order_Menu_Items",
+                        principalTable: "orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order_Menu_Item_Ingredients",
+                name: "order_menu_items_-_ingredients",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IngredientId = table.Column<int>(nullable: true),
-                    Ingredient_Id = table.Column<int>(nullable: false),
-                    Order_Menu_ItemId = table.Column<int>(nullable: true),
-                    Order_Menu_Item_Id = table.Column<int>(nullable: false)
+                    IngredientId = table.Column<int>(nullable: false),
+                    OrderMenuItemId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order_Menu_Item_Ingredients", x => x.Id);
+                    table.PrimaryKey("PK_order_menu_items_-_ingredients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Order_Menu_Item_Ingredients_Ingredients_IngredientId",
+                        name: "FK_order_menu_items_-_ingredients_ingredients_IngredientId",
                         column: x => x.IngredientId,
-                        principalTable: "Ingredients",
+                        principalTable: "ingredients",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Order_Menu_Item_Ingredients_Order_Menu_Items_Order_Menu_ItemId",
-                        column: x => x.Order_Menu_ItemId,
-                        principalTable: "Order_Menu_Items",
+                        name: "FK_order_menu_items_-_ingredients_order_menu_items_OrderMenuItemId",
+                        column: x => x.OrderMenuItemId,
+                        principalTable: "order_menu_items",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AccountRole_AccountId",
-                table: "AccountRole",
+                name: "IX_accounts_roles_AccountId",
+                table: "accounts_roles",
                 column: "AccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_Data_AccountRole_Id",
-                table: "Employee_Data",
-                column: "AccountRole_Id",
+                name: "IX_employee_data_AccountRoleId",
+                table: "employee_data",
+                column: "AccountRoleId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_Data_RestaurantId",
-                table: "Employee_Data",
+                name: "IX_employee_data_RestaurantId",
+                table: "employee_data",
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Menu_Item_Ingredients_Ingredient_Id",
-                table: "Menu_Item_Ingredients",
-                column: "Ingredient_Id");
+                name: "IX_menu_item_options_MenuItemId",
+                table: "menu_item_options",
+                column: "MenuItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Menu_Item_Ingredients_Menu_Items_IdId",
-                table: "Menu_Item_Ingredients",
-                column: "Menu_Items_IdId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Menu_Item_Options_Menu_ItemId",
-                table: "Menu_Item_Options",
-                column: "Menu_ItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Menu_Item_Options_Order_Menu_Id",
-                table: "Menu_Item_Options",
-                column: "Order_Menu_Id",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Menu_Items_RestaurantId",
-                table: "Menu_Items",
+                name: "IX_menu_items_RestaurantId",
+                table: "menu_items",
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_Menu_Item_Ingredients_IngredientId",
-                table: "Order_Menu_Item_Ingredients",
+                name: "IX_menu_items_-_ingredients_IngredientId",
+                table: "menu_items_-_ingredients",
                 column: "IngredientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_Menu_Item_Ingredients_Order_Menu_ItemId",
-                table: "Order_Menu_Item_Ingredients",
-                column: "Order_Menu_ItemId");
+                name: "IX_order_menu_items_MenuItemId",
+                table: "order_menu_items",
+                column: "MenuItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_Menu_Items_Menu_ItemId",
-                table: "Order_Menu_Items",
-                column: "Menu_ItemId");
+                name: "IX_order_menu_items_MenuItemOptionId",
+                table: "order_menu_items",
+                column: "MenuItemOptionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_Menu_Items_OrderId",
-                table: "Order_Menu_Items",
+                name: "IX_order_menu_items_OrderId",
+                table: "order_menu_items",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_EmployeeId",
-                table: "Orders",
+                name: "IX_order_menu_items_-_ingredients_IngredientId",
+                table: "order_menu_items_-_ingredients",
+                column: "IngredientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_order_menu_items_-_ingredients_OrderMenuItemId",
+                table: "order_menu_items_-_ingredients",
+                column: "OrderMenuItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_orders_EmployeeId",
+                table: "orders",
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_Payment_Type_Id",
-                table: "Orders",
-                column: "Payment_Type_Id",
-                unique: true);
+                name: "IX_orders_PaymentTypeId",
+                table: "orders",
+                column: "PaymentTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_Status_Id",
-                table: "Orders",
-                column: "Status_Id",
-                unique: true);
+                name: "IX_orders_StatusId",
+                table: "orders",
+                column: "StatusId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Menu_Item_Ingredients");
+                name: "menu_items_-_ingredients");
 
             migrationBuilder.DropTable(
-                name: "Menu_Item_Options");
+                name: "order_menu_items_-_ingredients");
 
             migrationBuilder.DropTable(
-                name: "Order_Menu_Item_Ingredients");
+                name: "ingredients");
 
             migrationBuilder.DropTable(
-                name: "Ingredients");
+                name: "order_menu_items");
 
             migrationBuilder.DropTable(
-                name: "Order_Menu_Items");
+                name: "menu_item_options");
 
             migrationBuilder.DropTable(
-                name: "Menu_Items");
+                name: "orders");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "menu_items");
 
             migrationBuilder.DropTable(
-                name: "Employee_Data");
+                name: "employee_data");
 
             migrationBuilder.DropTable(
-                name: "Payment_Type");
+                name: "payment_types");
 
             migrationBuilder.DropTable(
-                name: "Status");
+                name: "statuses");
 
             migrationBuilder.DropTable(
-                name: "AccountRole");
+                name: "accounts_roles");
 
             migrationBuilder.DropTable(
-                name: "Restaurants");
+                name: "restaurants");
 
             migrationBuilder.DropTable(
                 name: "Account");

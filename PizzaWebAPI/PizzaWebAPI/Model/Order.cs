@@ -17,7 +17,7 @@ namespace PizzaWebAPI.Model
         public decimal TotalPrice { get; set; }
         public DateTime Date { get; set; }
         [ForeignKey("EmployeeData")]
-        public int EmployeeId { get; set; }
+        public int? EmployeeId { get; set; }
         [ForeignKey("PaymentType")]
         public int PaymentTypeId { get; set; }
         public virtual Status Status { get; set; }
