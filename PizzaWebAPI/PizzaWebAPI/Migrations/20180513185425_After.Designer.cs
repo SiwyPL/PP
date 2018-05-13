@@ -11,8 +11,8 @@ using System;
 namespace PizzaWebAPI.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    [Migration("20180513183314_Initial")]
-    partial class Initial
+    [Migration("20180513185425_After")]
+    partial class After
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

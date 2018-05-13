@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PizzaWebAPI.Migrations
 {
-    public partial class Initial : Migration
+    public partial class After : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
