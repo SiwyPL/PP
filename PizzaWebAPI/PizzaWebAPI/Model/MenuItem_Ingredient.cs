@@ -7,16 +7,15 @@ using System.Threading.Tasks;
 
 namespace PizzaWebAPI.Model
 {
-    [Table("menu_item_options")]
-    public class MenuItemOption
+    [Table("menu_items_-_ingredients")]
+    public class MenuItem_Ingredient
     {
         [Key]
-        public int Id { get; set; }
-        public String Name { get; set; }
-        public Decimal Price { get; set; }
-        public int OrderMenuId { get; set; }
+        [ForeignKey("MenuItem")]
+        public int MenuItemId { get; set; }
+        [ForeignKey("Ingredient")]
+        public int IngredientId { get; set; }
         public virtual MenuItem MenuItem { get; set; }
-        public virtual ICollection<OrderMenuItem> OrderMenuItems { get; set; }
-
+        public virtual Ingredient Ingredient { get; set; }
     }
 }

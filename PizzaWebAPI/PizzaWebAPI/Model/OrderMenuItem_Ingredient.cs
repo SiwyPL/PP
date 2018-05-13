@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace PizzaWebAPI.Model
 {
-    [Table("order_menu_item_ingredients")]
-    public class OrderMenuItemIngredient
+    [Table("order_menu_items_-_ingredients")]
+    public class OrderMenuItem_Ingredient
     {
         [Key]
         public int Id { get; set; }

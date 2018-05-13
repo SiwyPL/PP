@@ -17,7 +17,7 @@ namespace PizzaWebAPI.Model
         public int RestaurantId { get; set; }
         public bool HasIngredients{ get; set; }
 
-        public virtual ICollection<MenuItemIngredient> MenuItemIngredients { get; set; }
+        public virtual ICollection<MenuItem_Ingredient> MenuItemIngredients { get; set; }
         public virtual ICollection<OrderMenuItem> OrderMenuItems { get; set; }
         public virtual ICollection<MenuItemOption> MenuItemOptions { get; set; }
         public virtual Restaurant Restaurant { get; set; }
