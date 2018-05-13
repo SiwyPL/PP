@@ -10,7 +10,7 @@ namespace PizzaWebAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Account",
+                name: "account",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -24,7 +24,7 @@ namespace PizzaWebAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Account", x => x.Id);
+                    table.PrimaryKey("PK_account", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,9 +100,9 @@ namespace PizzaWebAPI.Migrations
                 {
                     table.PrimaryKey("PK_accounts_roles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_accounts_roles_Account_AccountId",
+                        name: "FK_accounts_roles_account_AccountId",
                         column: x => x.AccountId,
-                        principalTable: "Account",
+                        principalTable: "account",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -415,7 +415,7 @@ namespace PizzaWebAPI.Migrations
                 name: "restaurants");
 
             migrationBuilder.DropTable(
-                name: "Account");
+                name: "account");
         }
     }
 }

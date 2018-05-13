@@ -39,7 +39,7 @@ namespace PizzaWebAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Account");
+                    b.ToTable("account");
                 });
 
             modelBuilder.Entity("PizzaWebAPI.Model.AccountRole", b =>

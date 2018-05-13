@@ -11,7 +11,7 @@ using System;
 namespace PizzaWebAPI.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    [Migration("20180513192836_After")]
+    [Migration("20180513194745_After")]
     partial class After
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace PizzaWebAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Account");
+                    b.ToTable("account");
                 });
 
             modelBuilder.Entity("PizzaWebAPI.Model.AccountRole", b =>
