@@ -10,57 +10,57 @@ using PizzaWebAPI.Model;
 namespace PizzaWebAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Accounts")]
-    public class AccountsController : Controller
+    [Route("api/MenuItems")]
+    public class MenuItemsController : Controller
     {
         private readonly ModelContext _context;
 
-        public AccountsController(ModelContext context)
+        public MenuItemsController(ModelContext context)
         {
             _context = context;
         }
 
-        // GET: api/Accounts
+        // GET: api/MenuItems
         [HttpGet]
-        public IEnumerable<Account> GetAccounts()
+        public IEnumerable<MenuItem> GetMenuItems()
         {
-            return _context.Accounts.Include(a => a.Roles);
+            return _context.MenuItems;
         }
 
-        // GET: api/Accounts/5
+        // GET: api/MenuItems/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAccount([FromRoute] int id)
+        public async Task<IActionResult> GetMenuItem([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var account = await _context.Accounts.SingleOrDefaultAsync(m => m.Id == id);
+            var menuItem = await _context.MenuItems.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (account == null)
+            if (menuItem == null)
             {
                 return NotFound();
             }
 
-            return Ok(account);
+            return Ok(menuItem);
         }
 
-        // PUT: api/Accounts/5
+        // PUT: api/MenuItems/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccount([FromRoute] int id, [FromBody] Account account)
+        public async Task<IActionResult> PutMenuItem([FromRoute] int id, [FromBody] MenuItem menuItem)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != account.Id)
+            if (id != menuItem.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(account).State = EntityState.Modified;
+            _context.Entry(menuItem).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace PizzaWebAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountExists(id))
+                if (!MenuItemExists(id))
                 {
                     return NotFound();
                 }
@@ -81,45 +81,45 @@ namespace PizzaWebAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Accounts
+        // POST: api/MenuItems
         [HttpPost]
-        public async Task<IActionResult> PostAccount([FromBody] Account account)
+        public async Task<IActionResult> PostMenuItem([FromBody] MenuItem menuItem)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Accounts.Add(account);
+            _context.MenuItems.Add(menuItem);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAccount", new { id = account.Id }, account);
+            return CreatedAtAction("GetMenuItem", new { id = menuItem.Id }, menuItem);
         }
 
-        // DELETE: api/Accounts/5
+        // DELETE: api/MenuItems/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAccount([FromRoute] int id)
+        public async Task<IActionResult> DeleteMenuItem([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var account = await _context.Accounts.SingleOrDefaultAsync(m => m.Id == id);
-            if (account == null)
+            var menuItem = await _context.MenuItems.SingleOrDefaultAsync(m => m.Id == id);
+            if (menuItem == null)
             {
                 return NotFound();
             }
 
-            _context.Accounts.Remove(account);
+            _context.MenuItems.Remove(menuItem);
             await _context.SaveChangesAsync();
 
-            return Ok(account);
+            return Ok(menuItem);
         }
 
-        private bool AccountExists(int id)
+        private bool MenuItemExists(int id)
         {
-            return _context.Accounts.Any(e => e.Id == id);
+            return _context.MenuItems.Any(e => e.Id == id);
         }
     }
 }

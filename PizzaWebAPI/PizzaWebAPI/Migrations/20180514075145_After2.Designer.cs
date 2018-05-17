@@ -11,9 +11,10 @@ using System;
 namespace PizzaWebAPI.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    partial class ModelContextModelSnapshot : ModelSnapshot
+    [Migration("20180514075145_After2")]
+    partial class After2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,6 +144,8 @@ namespace PizzaWebAPI.Migrations
                     b.Property<int?>("MenuItemId");
 
                     b.Property<string>("Name");
+
+                    b.Property<int>("OrderMenuId");
 
                     b.Property<decimal>("Price");
 

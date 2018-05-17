@@ -14,7 +14,6 @@ namespace PizzaWebAPI.Model
         public int Id { get; set; }
         public String Name { get; set; }
         public Decimal Price { get; set; }
-        public int OrderMenuId { get; set; }
         public virtual MenuItem MenuItem { get; set; }
         public virtual ICollection<OrderMenuItem> OrderMenuItems { get; set; }
 

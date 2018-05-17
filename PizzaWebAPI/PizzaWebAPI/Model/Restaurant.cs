@@ -15,11 +15,11 @@ namespace PizzaWebAPI.Model
         public String Name { get; set; }
         public float CoordX { get; set; }
         public float CoordY { get; set;}
-        public String Adress { get; set; }
+        public String Address { get; set; }
         public String City { get; set; }
         public String Phone { get; set; }
         public virtual ICollection<MenuItem> MenuItems { get; set; }
-        public virtual ICollection<EmployeeData> Employee { get; set; }
+        public virtual ICollection<EmployeeData> Employees { get; set; }
 
     }
 }

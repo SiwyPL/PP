@@ -10,57 +10,57 @@ using PizzaWebAPI.Model;
 namespace PizzaWebAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Accounts")]
-    public class AccountsController : Controller
+    [Route("api/AccountRoles")]
+    public class AccountRolesController : Controller
     {
         private readonly ModelContext _context;
 
-        public AccountsController(ModelContext context)
+        public AccountRolesController(ModelContext context)
         {
             _context = context;
         }
 
-        // GET: api/Accounts
+        // GET: api/AccountRoles
         [HttpGet]
-        public IEnumerable<Account> GetAccounts()
+        public IEnumerable<AccountRole> GetAccountsRoles()
         {
-            return _context.Accounts.Include(a => a.Roles);
+            return _context.AccountsRoles;
         }
 
-        // GET: api/Accounts/5
+        // GET: api/AccountRoles/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAccount([FromRoute] int id)
+        public async Task<IActionResult> GetAccountRole([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var account = await _context.Accounts.SingleOrDefaultAsync(m => m.Id == id);
+            var accountRole = await _context.AccountsRoles.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (account == null)
+            if (accountRole == null)
             {
                 return NotFound();
             }
 
-            return Ok(account);
+            return Ok(accountRole);
         }
 
-        // PUT: api/Accounts/5
+        // PUT: api/AccountRoles/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccount([FromRoute] int id, [FromBody] Account account)
+        public async Task<IActionResult> PutAccountRole([FromRoute] int id, [FromBody] AccountRole accountRole)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != account.Id)
+            if (id != accountRole.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(account).State = EntityState.Modified;
+            _context.Entry(accountRole).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace PizzaWebAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountExists(id))
+                if (!AccountRoleExists(id))
                 {
                     return NotFound();
                 }
@@ -81,45 +81,45 @@ namespace PizzaWebAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Accounts
+        // POST: api/AccountRoles
         [HttpPost]
-        public async Task<IActionResult> PostAccount([FromBody] Account account)
+        public async Task<IActionResult> PostAccountRole([FromBody] AccountRole accountRole)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Accounts.Add(account);
+            _context.AccountsRoles.Add(accountRole);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAccount", new { id = account.Id }, account);
+            return CreatedAtAction("GetAccountRole", new { id = accountRole.Id }, accountRole);
         }
 
-        // DELETE: api/Accounts/5
+        // DELETE: api/AccountRoles/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAccount([FromRoute] int id)
+        public async Task<IActionResult> DeleteAccountRole([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var account = await _context.Accounts.SingleOrDefaultAsync(m => m.Id == id);
-            if (account == null)
+            var accountRole = await _context.AccountsRoles.SingleOrDefaultAsync(m => m.Id == id);
+            if (accountRole == null)
             {
                 return NotFound();
             }
 
-            _context.Accounts.Remove(account);
+            _context.AccountsRoles.Remove(accountRole);
             await _context.SaveChangesAsync();
 
-            return Ok(account);
+            return Ok(accountRole);
         }
 
-        private bool AccountExists(int id)
+        private bool AccountRoleExists(int id)
         {
-            return _context.Accounts.Any(e => e.Id == id);
+            return _context.AccountsRoles.Any(e => e.Id == id);
         }
     }
 }

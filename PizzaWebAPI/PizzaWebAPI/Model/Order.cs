@@ -23,6 +23,7 @@ namespace PizzaWebAPI.Model
         public virtual Status Status { get; set; }
         public virtual PaymentType PaymentType { get; set; }
         public virtual EmployeeData Employee { get; set; }
+        // public virtual Restaurant Restaurant { get; set; }
         public virtual ICollection<OrderMenuItem> OrderMenuItems { get; set; }
     }
 }

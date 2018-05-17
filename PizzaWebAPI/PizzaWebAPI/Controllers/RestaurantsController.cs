@@ -10,57 +10,57 @@ using PizzaWebAPI.Model;
 namespace PizzaWebAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Accounts")]
-    public class AccountsController : Controller
+    [Route("api/Restaurants")]
+    public class RestaurantsController : Controller
     {
         private readonly ModelContext _context;
 
-        public AccountsController(ModelContext context)
+        public RestaurantsController(ModelContext context)
         {
             _context = context;
         }
 
-        // GET: api/Accounts
+        // GET: api/Restaurants
         [HttpGet]
-        public IEnumerable<Account> GetAccounts()
+        public IEnumerable<Restaurant> GetRestauraunts()
         {
-            return _context.Accounts.Include(a => a.Roles);
+            return _context.Restauraunts;
         }
 
-        // GET: api/Accounts/5
+        // GET: api/Restaurants/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAccount([FromRoute] int id)
+        public async Task<IActionResult> GetRestaurant([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var account = await _context.Accounts.SingleOrDefaultAsync(m => m.Id == id);
+            var restaurant = await _context.Restauraunts.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (account == null)
+            if (restaurant == null)
             {
                 return NotFound();
             }
 
-            return Ok(account);
+            return Ok(restaurant);
         }
 
-        // PUT: api/Accounts/5
+        // PUT: api/Restaurants/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccount([FromRoute] int id, [FromBody] Account account)
+        public async Task<IActionResult> PutRestaurant([FromRoute] int id, [FromBody] Restaurant restaurant)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != account.Id)
+            if (id != restaurant.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(account).State = EntityState.Modified;
+            _context.Entry(restaurant).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace PizzaWebAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountExists(id))
+                if (!RestaurantExists(id))
                 {
                     return NotFound();
                 }
@@ -81,45 +81,45 @@ namespace PizzaWebAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Accounts
+        // POST: api/Restaurants
         [HttpPost]
-        public async Task<IActionResult> PostAccount([FromBody] Account account)
+        public async Task<IActionResult> PostRestaurant([FromBody] Restaurant restaurant)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Accounts.Add(account);
+            _context.Restauraunts.Add(restaurant);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAccount", new { id = account.Id }, account);
+            return CreatedAtAction("GetRestaurant", new { id = restaurant.Id }, restaurant);
         }
 
-        // DELETE: api/Accounts/5
+        // DELETE: api/Restaurants/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAccount([FromRoute] int id)
+        public async Task<IActionResult> DeleteRestaurant([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var account = await _context.Accounts.SingleOrDefaultAsync(m => m.Id == id);
-            if (account == null)
+            var restaurant = await _context.Restauraunts.SingleOrDefaultAsync(m => m.Id == id);
+            if (restaurant == null)
             {
                 return NotFound();
             }
 
-            _context.Accounts.Remove(account);
+            _context.Restauraunts.Remove(restaurant);
             await _context.SaveChangesAsync();
 
-            return Ok(account);
+            return Ok(restaurant);
         }
 
-        private bool AccountExists(int id)
+        private bool RestaurantExists(int id)
         {
-            return _context.Accounts.Any(e => e.Id == id);
+            return _context.Restauraunts.Any(e => e.Id == id);
         }
     }
 }

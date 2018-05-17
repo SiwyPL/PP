@@ -10,57 +10,57 @@ using PizzaWebAPI.Model;
 namespace PizzaWebAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Accounts")]
-    public class AccountsController : Controller
+    [Route("api/Status")]
+    public class StatusController : Controller
     {
         private readonly ModelContext _context;
 
-        public AccountsController(ModelContext context)
+        public StatusController(ModelContext context)
         {
             _context = context;
         }
 
-        // GET: api/Accounts
+        // GET: api/Status
         [HttpGet]
-        public IEnumerable<Account> GetAccounts()
+        public IEnumerable<Status> GetStatuses()
         {
-            return _context.Accounts.Include(a => a.Roles);
+            return _context.Statuses;
         }
 
-        // GET: api/Accounts/5
+        // GET: api/Status/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAccount([FromRoute] int id)
+        public async Task<IActionResult> GetStatus([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var account = await _context.Accounts.SingleOrDefaultAsync(m => m.Id == id);
+            var status = await _context.Statuses.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (account == null)
+            if (status == null)
             {
                 return NotFound();
             }
 
-            return Ok(account);
+            return Ok(status);
         }
 
-        // PUT: api/Accounts/5
+        // PUT: api/Status/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccount([FromRoute] int id, [FromBody] Account account)
+        public async Task<IActionResult> PutStatus([FromRoute] int id, [FromBody] Status status)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != account.Id)
+            if (id != status.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(account).State = EntityState.Modified;
+            _context.Entry(status).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace PizzaWebAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountExists(id))
+                if (!StatusExists(id))
                 {
                     return NotFound();
                 }
@@ -81,45 +81,45 @@ namespace PizzaWebAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Accounts
+        // POST: api/Status
         [HttpPost]
-        public async Task<IActionResult> PostAccount([FromBody] Account account)
+        public async Task<IActionResult> PostStatus([FromBody] Status status)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Accounts.Add(account);
+            _context.Statuses.Add(status);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAccount", new { id = account.Id }, account);
+            return CreatedAtAction("GetStatus", new { id = status.Id }, status);
         }
 
-        // DELETE: api/Accounts/5
+        // DELETE: api/Status/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAccount([FromRoute] int id)
+        public async Task<IActionResult> DeleteStatus([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var account = await _context.Accounts.SingleOrDefaultAsync(m => m.Id == id);
-            if (account == null)
+            var status = await _context.Statuses.SingleOrDefaultAsync(m => m.Id == id);
+            if (status == null)
             {
                 return NotFound();
             }
 
-            _context.Accounts.Remove(account);
+            _context.Statuses.Remove(status);
             await _context.SaveChangesAsync();
 
-            return Ok(account);
+            return Ok(status);
         }
 
-        private bool AccountExists(int id)
+        private bool StatusExists(int id)
         {
-            return _context.Accounts.Any(e => e.Id == id);
+            return _context.Statuses.Any(e => e.Id == id);
         }
     }
 }

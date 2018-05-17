@@ -10,57 +10,57 @@ using PizzaWebAPI.Model;
 namespace PizzaWebAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Accounts")]
-    public class AccountsController : Controller
+    [Route("api/EmployeeDatas")]
+    public class EmployeeDatasController : Controller
     {
         private readonly ModelContext _context;
 
-        public AccountsController(ModelContext context)
+        public EmployeeDatasController(ModelContext context)
         {
             _context = context;
         }
 
-        // GET: api/Accounts
+        // GET: api/EmployeeDatas
         [HttpGet]
-        public IEnumerable<Account> GetAccounts()
+        public IEnumerable<EmployeeData> GetEmployeesData()
         {
-            return _context.Accounts.Include(a => a.Roles);
+            return _context.EmployeesData;
         }
 
-        // GET: api/Accounts/5
+        // GET: api/EmployeeDatas/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAccount([FromRoute] int id)
+        public async Task<IActionResult> GetEmployeeData([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var account = await _context.Accounts.SingleOrDefaultAsync(m => m.Id == id);
+            var employeeData = await _context.EmployeesData.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (account == null)
+            if (employeeData == null)
             {
                 return NotFound();
             }
 
-            return Ok(account);
+            return Ok(employeeData);
         }
 
-        // PUT: api/Accounts/5
+        // PUT: api/EmployeeDatas/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccount([FromRoute] int id, [FromBody] Account account)
+        public async Task<IActionResult> PutEmployeeData([FromRoute] int id, [FromBody] EmployeeData employeeData)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != account.Id)
+            if (id != employeeData.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(account).State = EntityState.Modified;
+            _context.Entry(employeeData).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace PizzaWebAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountExists(id))
+                if (!EmployeeDataExists(id))
                 {
                     return NotFound();
                 }
@@ -81,45 +81,45 @@ namespace PizzaWebAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Accounts
+        // POST: api/EmployeeDatas
         [HttpPost]
-        public async Task<IActionResult> PostAccount([FromBody] Account account)
+        public async Task<IActionResult> PostEmployeeData([FromBody] EmployeeData employeeData)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Accounts.Add(account);
+            _context.EmployeesData.Add(employeeData);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAccount", new { id = account.Id }, account);
+            return CreatedAtAction("GetEmployeeData", new { id = employeeData.Id }, employeeData);
         }
 
-        // DELETE: api/Accounts/5
+        // DELETE: api/EmployeeDatas/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAccount([FromRoute] int id)
+        public async Task<IActionResult> DeleteEmployeeData([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var account = await _context.Accounts.SingleOrDefaultAsync(m => m.Id == id);
-            if (account == null)
+            var employeeData = await _context.EmployeesData.SingleOrDefaultAsync(m => m.Id == id);
+            if (employeeData == null)
             {
                 return NotFound();
             }
 
-            _context.Accounts.Remove(account);
+            _context.EmployeesData.Remove(employeeData);
             await _context.SaveChangesAsync();
 
-            return Ok(account);
+            return Ok(employeeData);
         }
 
-        private bool AccountExists(int id)
+        private bool EmployeeDataExists(int id)
         {
-            return _context.Accounts.Any(e => e.Id == id);
+            return _context.EmployeesData.Any(e => e.Id == id);
         }
     }
 }
