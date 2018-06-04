@@ -22,10 +22,9 @@ namespace PizzaWebAPI.Controllers
 
         // GET: api/Accounts
         [HttpGet]
-        public IEnumerable<Account> GetAccounts()
-        {
+        public IEnumerable<Account> GetAccounts() {
             return _context.Accounts.Include(a => a.Roles);
-        }
+        } 
 
         // GET: api/Accounts/5
         [HttpGet("{id}")]

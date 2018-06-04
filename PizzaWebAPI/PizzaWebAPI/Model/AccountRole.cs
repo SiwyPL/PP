@@ -17,6 +17,6 @@ namespace PizzaWebAPI.Model
         [ForeignKey("EmployeeData")]
         public int EmployeeId { get; set; }
         public virtual EmployeeData Employee { get; set; }
-        public virtual Account Account { get; set; }
+        //public virtual Account Account { get; set; }
     }
 }
