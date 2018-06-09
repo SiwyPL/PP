@@ -36,7 +36,10 @@ namespace PizzaWebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var menuItem = await _context.MenuItems.SingleOrDefaultAsync(m => m.Id == id);
+            var menuItem = await _context.MenuItems
+                .Include(mi => mi.MenuItemIngredients)
+                .Include(mi => mi.MenuItemOptions)
+                .SingleOrDefaultAsync(m => m.Id == id);
 
             if (menuItem == null)
             {

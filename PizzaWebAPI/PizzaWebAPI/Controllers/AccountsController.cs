@@ -23,7 +23,7 @@ namespace PizzaWebAPI.Controllers
         // GET: api/Accounts
         [HttpGet]
         public IEnumerable<Account> GetAccounts() {
-            return _context.Accounts.Include(a => a.Roles);
+            return _context.Accounts;
         } 
 
         // GET: api/Accounts/5
@@ -35,7 +35,7 @@ namespace PizzaWebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var account = await _context.Accounts.SingleOrDefaultAsync(m => m.Id == id);
+            var account = await _context.Accounts.Include(a => a.Roles).SingleOrDefaultAsync(m => m.Id == id);
 
             if (account == null)
             {
