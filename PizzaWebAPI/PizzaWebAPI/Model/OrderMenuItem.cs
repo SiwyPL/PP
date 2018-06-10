@@ -20,7 +20,7 @@ namespace PizzaWebAPI.Model
         public int MenuItemOptionId { get; set; }
         public int Count { get; set; }
         public virtual MenuItem MenuItem { get; set; }
-        public virtual Order Order { get; set; }
+        //public virtual Order Order { get; set; }
         public virtual MenuItemOption MenuItemOption { get; set; }
         public virtual ICollection<OrderMenuItem_Ingredient> OrderMenuItemIngredients { get; set; }
     }

@@ -14,6 +14,6 @@ namespace PizzaWebAPI.Model
         public int Id { get; set; }
         public String Name { get; set; }
         
-        public virtual ICollection<Order> Order { get; set; }
+        //public virtual ICollection<Order> Order { get; set; }
     }
 }

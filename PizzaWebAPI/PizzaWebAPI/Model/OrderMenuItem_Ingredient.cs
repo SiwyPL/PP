@@ -16,7 +16,7 @@ namespace PizzaWebAPI.Model
         public int OrderMenuItemId { get; set; }
         [ForeignKey("Ingredient")]
         public int IngredientId { get; set; }
-        public virtual OrderMenuItem OrderMenuItem { get; set; }
+        //public virtual OrderMenuItem OrderMenuItem { get; set; }
         public virtual Ingredient Ingredient { get; set;}
     }
 }
