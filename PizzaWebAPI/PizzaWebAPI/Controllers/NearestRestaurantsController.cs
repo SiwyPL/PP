@@ -32,7 +32,8 @@ namespace PizzaWebAPI.Controllers
             using (var w = new WebClient()) {
                 // attempt to download JSON data as a string
                 try {
-                    json_data = w.DownloadString($"https://maps.googleapis.com/maps/api/geocode/json?address={address}&key=AIzaSyBs2AOh7DdQ9BRPUG1I3PW6tvh-RElL_u0");
+                    json_data = w.DownloadString($"https://maps.googleapis.com/maps/api/geocode/json?address={address}&key=AIzaSyD13Ng4WBkid9leuyMWcjoHhQYa_Ps7-HA");
+                    
                 } catch (Exception) { }
             }
 
@@ -42,12 +43,12 @@ namespace PizzaWebAPI.Controllers
             double[] coords = new double[2];
 
             try {
-                coords[0] = json_obj.results.geometry.location.lat;
-                coords[1] = json_obj.results.geometry.location.lng;
-            } catch (Exception) {
+                coords[0] = json_obj.results[0].geometry.location.lat;
+                coords[1] = json_obj.results[0].geometry.location.lng;
+            } catch (Exception e) {
                 //Console.WriteLine(json_obj.error_message);
                 //Console.WriteLine(json_obj.status);
-                return new { error = json_obj.error_message, json_obj.status };
+                return new { googleApiError = json_obj.error_message, googleApiStatus = json_obj.status, codeError = e.Message};
             }
 
             string status = json_obj.status;
@@ -55,11 +56,11 @@ namespace PizzaWebAPI.Controllers
             IEnumerable<Object> list = new List<Object>();
 
             await Task.Run(() => {
-                list = _context.Restauraunts.Select(r => new { Restaurant = r, Distance = r.DistanceFromCoords(coords), Status = status }).ToList();
+                list = _context.Restauraunts.Select(r => new { Restaurant = r, Distance = r.DistanceFromCoords(coords), Status = status }).ToList().OrderBy(l => l.Distance);
             });
 
 
-            return new { List = list, FormattedAddress = json_obj.results.formatted_address }; 
+            return new { List = list, FormattedAddress = json_obj.results[0].formatted_address }; 
         }
 
     }

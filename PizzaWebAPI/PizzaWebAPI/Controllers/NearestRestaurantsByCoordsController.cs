@@ -28,7 +28,7 @@ namespace PizzaWebAPI.Controllers
             IEnumerable<Object> list = new List<Object>();
 
             await Task.Run(() => {
-                list = _context.Restauraunts.Select(r => new { Restaurant = r, Distance = r.DistanceFromCoords(coords) }).ToList();
+                list = _context.Restauraunts.Select(r => new { Restaurant = r, Distance = r.DistanceFromCoords(coords) }).ToList().OrderBy(l => l.Distance);
             });
 
 
