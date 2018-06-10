@@ -56,11 +56,11 @@ namespace PizzaWebAPI.Controllers
             IEnumerable<Object> list = new List<Object>();
 
             await Task.Run(() => {
-                list = _context.Restauraunts.Select(r => new { Restaurant = r, Distance = r.DistanceFromCoords(coords), Status = status }).ToList().OrderBy(l => l.Distance);
+                list = _context.Restauraunts.Select(r => new { Restaurant = r, Distance = r.DistanceFromCoords(coords) }).ToList().OrderBy(l => l.Distance);
             });
 
 
-            return new { List = list, FormattedAddress = json_obj.results[0].formatted_address }; 
+            return new { List = list, FormattedAddress = json_obj.results[0].formatted_address, Status = status }; 
         }
 
     }
