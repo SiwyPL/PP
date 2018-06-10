@@ -18,6 +18,8 @@ namespace PizzaWebAPI.Controllers
             _context = context;
         }
 
+        // GET: api/NearestRestaurantsByCoords/{lat},{long} ex. api/NearestRestaurantsByCoords/51.751087,19.447973
+
         [HttpGet("{coordsString}")]
         public async Task<Object> GetRestauraunts([FromRoute] string coordsString) {
 
