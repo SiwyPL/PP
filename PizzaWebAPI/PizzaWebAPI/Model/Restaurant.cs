@@ -20,6 +20,5 @@ namespace PizzaWebAPI.Model
         public String Phone { get; set; }
         public virtual ICollection<MenuItem> MenuItems { get; set; }
         public virtual ICollection<EmployeeData> Employees { get; set; }
-
     }
 }
