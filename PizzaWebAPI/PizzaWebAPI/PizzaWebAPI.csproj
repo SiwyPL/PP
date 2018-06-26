@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\ValuesController.cs" />
     <Compile Remove="Migrations\20180625234829_After5.cs" />
     <Compile Remove="Migrations\20180625234829_After5.Designer.cs" />
     <Compile Remove="Migrations\20180626001753_Again2.cs" />
