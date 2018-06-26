@@ -301,6 +301,20 @@ namespace PizzaWebAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_account_Email",
+                table: "account",
+                column: "Email",
+                unique: true,
+                filter: "[Email] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_account_Login",
+                table: "account",
+                column: "Login",
+                unique: true,
+                filter: "[Login] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_accounts_roles_AccountId",
                 table: "accounts_roles",
                 column: "AccountId");

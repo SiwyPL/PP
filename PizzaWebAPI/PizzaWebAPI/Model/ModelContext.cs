@@ -13,6 +13,15 @@ namespace PizzaWebAPI.Model
 
         }
 
+        protected override void OnModelCreating(ModelBuilder builder) {
+            builder.Entity<Account>()
+                 .HasIndex(a => a.Login)
+                 .IsUnique();
+            builder.Entity<Account>()
+                 .HasIndex(a => a.Email)
+                 .IsUnique();
+        }
+
         public DbSet<Account> Accounts { get; set; }
         public DbSet<AccountRole> AccountsRoles { get; set; }
         public DbSet<EmployeeData> EmployeesData { get; set; }

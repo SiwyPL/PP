@@ -39,6 +39,14 @@ namespace PizzaWebAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
+
+                    b.HasIndex("Login")
+                        .IsUnique()
+                        .HasFilter("[Login] IS NOT NULL");
+
                     b.ToTable("account");
                 });
 
@@ -339,7 +347,7 @@ namespace PizzaWebAPI.Migrations
             modelBuilder.Entity("PizzaWebAPI.Model.OrderMenuItem", b =>
                 {
                     b.HasOne("PizzaWebAPI.Model.MenuItem", "MenuItem")
-                        .WithMany("OrderMenuItems")
+                        .WithMany()
                         .HasForeignKey("MenuItemId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -348,7 +356,7 @@ namespace PizzaWebAPI.Migrations
                         .HasForeignKey("MenuItemOptionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PizzaWebAPI.Model.Order", "Order")
+                    b.HasOne("PizzaWebAPI.Model.Order")
                         .WithMany("OrderMenuItems")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);

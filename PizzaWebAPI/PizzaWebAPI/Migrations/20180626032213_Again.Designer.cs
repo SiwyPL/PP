@@ -11,7 +11,7 @@ using System;
 namespace PizzaWebAPI.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    [Migration("20180626003232_Again")]
+    [Migration("20180626032213_Again")]
     partial class Again
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,14 @@ namespace PizzaWebAPI.Migrations
                     b.Property<string>("Password");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
+
+                    b.HasIndex("Login")
+                        .IsUnique()
+                        .HasFilter("[Login] IS NOT NULL");
 
                     b.ToTable("account");
                 });
@@ -340,7 +348,7 @@ namespace PizzaWebAPI.Migrations
             modelBuilder.Entity("PizzaWebAPI.Model.OrderMenuItem", b =>
                 {
                     b.HasOne("PizzaWebAPI.Model.MenuItem", "MenuItem")
-                        .WithMany("OrderMenuItems")
+                        .WithMany()
                         .HasForeignKey("MenuItemId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -349,7 +357,7 @@ namespace PizzaWebAPI.Migrations
                         .HasForeignKey("MenuItemOptionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PizzaWebAPI.Model.Order", "Order")
+                    b.HasOne("PizzaWebAPI.Model.Order")
                         .WithMany("OrderMenuItems")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);

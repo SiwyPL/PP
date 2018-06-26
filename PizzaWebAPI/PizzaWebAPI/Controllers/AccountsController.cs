@@ -91,8 +91,15 @@ namespace PizzaWebAPI.Controllers
 
             account.IsConfirmed = false;
 
-            _context.Accounts.Add(account);
-            await _context.SaveChangesAsync();
+            if (_context.Accounts.Any(e => e.Login == account.Login)) return BadRequest(new { Login = new string[] { "Login is already taken." } });
+            if (_context.Accounts.Any(e => e.Email == account.Email)) return BadRequest(new { Email = new string[] { "Email has been already used." } });
+
+            try {
+                _context.Accounts.Add(account);
+                await _context.SaveChangesAsync();
+            } catch (DbUpdateException e) {
+                return BadRequest(e.Message);
+            }
 
             return CreatedAtAction("GetAccount", new { id = account.Id }, account);
         }
