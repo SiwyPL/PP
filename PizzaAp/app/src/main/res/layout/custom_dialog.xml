@@ -8,7 +8,31 @@
     <ListView
         android:id="@+id/ListIngredients"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_height="396dp"></ListView>
+
+    <Switch
+        android:id="@+id/Switch1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Big"
+        tools:text="Small" />
+
+    <TextView
+        android:id="@+id/OverAllPrice"
+        android:layout_width="121dp"
+        android:layout_height="wrap_content"
+        android:text="OverAllPrice:" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/AddToBasketBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add To Basket" />
 
 </LinearLayout>
