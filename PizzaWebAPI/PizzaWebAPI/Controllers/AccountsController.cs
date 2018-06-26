@@ -49,6 +49,9 @@ namespace PizzaWebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAccount([FromRoute] int id, [FromBody] Account account)
         {
+            if (_context.Accounts.Any(e => e.Login == account.Login)) ModelState.AddModelError("Login", "Login is already taken.");
+            if (_context.Accounts.Any(e => e.Email == account.Email)) ModelState.AddModelError("Email", "Email has been already used.");
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -58,9 +61,6 @@ namespace PizzaWebAPI.Controllers
             {
                 return BadRequest();
             }
-
-            if (_context.Accounts.Any(e => e.Login == account.Login)) return BadRequest(new { Login = new string[] { "Login is already taken." } });
-            if (_context.Accounts.Any(e => e.Email == account.Email)) return BadRequest(new { Email = new string[] { "Email has been already used." } });
 
             _context.Entry(account).State = EntityState.Modified;
 
@@ -87,15 +87,15 @@ namespace PizzaWebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAccount([FromBody] Account account)
         {
+            if (_context.Accounts.Any(e => e.Login == account.Login)) ModelState.AddModelError("Login", "Login is already taken.");
+            if (_context.Accounts.Any(e => e.Email == account.Email)) ModelState.AddModelError("Email", "Email has been already used.");
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
             account.IsConfirmed = false;
-
-            if (_context.Accounts.Any(e => e.Login == account.Login)) return BadRequest(new { Login = new string[] { "Login is already taken." } });
-            if (_context.Accounts.Any(e => e.Email == account.Email)) return BadRequest(new { Email = new string[] { "Email has been already used." } });
 
             try {
                 _context.Accounts.Add(account);
