@@ -94,6 +94,8 @@ namespace PizzaWebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
+            order.Date = DateTime.Now;
+
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 

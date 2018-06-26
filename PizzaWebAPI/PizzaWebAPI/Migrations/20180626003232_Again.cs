@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PizzaWebAPI.Migrations
 {
-    public partial class After : Migration
+    public partial class Again : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,7 +60,7 @@ namespace PizzaWebAPI.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Adress = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     CoordX = table.Column<float>(nullable: false),
                     CoordY = table.Column<float>(nullable: false),
@@ -93,7 +93,7 @@ namespace PizzaWebAPI.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AccountId = table.Column<int>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
-                    EmployeeId = table.Column<int>(nullable: false),
+                    EmployeeId = table.Column<int>(nullable: true),
                     RoleName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -164,7 +164,6 @@ namespace PizzaWebAPI.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     MenuItemId = table.Column<int>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    OrderMenuId = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
@@ -210,9 +209,11 @@ namespace PizzaWebAPI.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Annotation = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     EmployeeId = table.Column<int>(nullable: true),
                     PaymentTypeId = table.Column<int>(nullable: false),
+                    RestaurantId = table.Column<int>(nullable: false),
                     StatusId = table.Column<int>(nullable: false),
                     TotalPrice = table.Column<decimal>(nullable: false)
                 },

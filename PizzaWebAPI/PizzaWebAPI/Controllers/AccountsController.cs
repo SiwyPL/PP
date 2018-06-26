@@ -89,6 +89,8 @@ namespace PizzaWebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
+            account.IsConfirmed = false;
+
             _context.Accounts.Add(account);
             await _context.SaveChangesAsync();
 

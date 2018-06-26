@@ -18,7 +18,7 @@ namespace PizzaWebAPI.Model
         public int AccountRoleId { get; set; }
         [ForeignKey("Restaurant")]
         public int RestaurantId { get; set; }
-        public virtual Restaurant Restaurant { get; set; }
+        //public virtual Restaurant Restaurant { get; set; }
         public virtual AccountRole AccountRole { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
 

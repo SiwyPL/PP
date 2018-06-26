@@ -51,7 +51,7 @@ namespace PizzaWebAPI.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<int>("EmployeeId");
+                    b.Property<int?>("EmployeeId");
 
                     b.Property<string>("RoleName");
 
@@ -158,11 +158,15 @@ namespace PizzaWebAPI.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Annotation");
+
                     b.Property<DateTime>("Date");
 
                     b.Property<int?>("EmployeeId");
 
                     b.Property<int>("PaymentTypeId");
+
+                    b.Property<int>("RestaurantId");
 
                     b.Property<int>("StatusId");
 
@@ -269,7 +273,7 @@ namespace PizzaWebAPI.Migrations
 
             modelBuilder.Entity("PizzaWebAPI.Model.AccountRole", b =>
                 {
-                    b.HasOne("PizzaWebAPI.Model.Account", "Account")
+                    b.HasOne("PizzaWebAPI.Model.Account")
                         .WithMany("Roles")
                         .HasForeignKey("AccountId");
                 });
@@ -281,7 +285,7 @@ namespace PizzaWebAPI.Migrations
                         .HasForeignKey("PizzaWebAPI.Model.EmployeeData", "AccountRoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PizzaWebAPI.Model.Restaurant", "Restaurant")
+                    b.HasOne("PizzaWebAPI.Model.Restaurant")
                         .WithMany("Employees")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -289,7 +293,7 @@ namespace PizzaWebAPI.Migrations
 
             modelBuilder.Entity("PizzaWebAPI.Model.MenuItem", b =>
                 {
-                    b.HasOne("PizzaWebAPI.Model.Restaurant", "Restaurant")
+                    b.HasOne("PizzaWebAPI.Model.Restaurant")
                         .WithMany("MenuItems")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -302,7 +306,7 @@ namespace PizzaWebAPI.Migrations
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PizzaWebAPI.Model.MenuItem", "MenuItem")
+                    b.HasOne("PizzaWebAPI.Model.MenuItem")
                         .WithMany("MenuItemIngredients")
                         .HasForeignKey("MenuItemId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -310,7 +314,7 @@ namespace PizzaWebAPI.Migrations
 
             modelBuilder.Entity("PizzaWebAPI.Model.MenuItemOption", b =>
                 {
-                    b.HasOne("PizzaWebAPI.Model.MenuItem", "MenuItem")
+                    b.HasOne("PizzaWebAPI.Model.MenuItem")
                         .WithMany("MenuItemOptions")
                         .HasForeignKey("MenuItemId");
                 });
@@ -322,12 +326,12 @@ namespace PizzaWebAPI.Migrations
                         .HasForeignKey("EmployeeId");
 
                     b.HasOne("PizzaWebAPI.Model.PaymentType", "PaymentType")
-                        .WithMany("Order")
+                        .WithMany()
                         .HasForeignKey("PaymentTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PizzaWebAPI.Model.Status", "Status")
-                        .WithMany("Order")
+                        .WithMany()
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -340,7 +344,7 @@ namespace PizzaWebAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PizzaWebAPI.Model.MenuItemOption", "MenuItemOption")
-                        .WithMany("OrderMenuItems")
+                        .WithMany()
                         .HasForeignKey("MenuItemOptionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -357,7 +361,7 @@ namespace PizzaWebAPI.Migrations
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PizzaWebAPI.Model.OrderMenuItem", "OrderMenuItem")
+                    b.HasOne("PizzaWebAPI.Model.OrderMenuItem")
                         .WithMany("OrderMenuItemIngredients")
                         .HasForeignKey("OrderMenuItemId")
                         .OnDelete(DeleteBehavior.Cascade);

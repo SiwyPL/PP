@@ -37,7 +37,7 @@ namespace PizzaWebAPI.Controllers
             }
 
             var orderMenuItem = await _context.OrderMenuItems
-                .Include(omi => omi.MenuItemOption)
+                .Include(omi => omi.MenuItem)
                 .Include(omi => omi.MenuItemOption)
                 .Include(omi => omi.OrderMenuItemIngredients)
                 .SingleOrDefaultAsync(m => m.Id == id);

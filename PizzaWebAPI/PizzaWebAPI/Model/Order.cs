@@ -20,10 +20,13 @@ namespace PizzaWebAPI.Model
         public int? EmployeeId { get; set; }
         [ForeignKey("PaymentType")]
         public int PaymentTypeId { get; set; }
+        [ForeignKey("Restaurant")]
+        public int RestaurantId { get; set; }
+        public string Annotation { get; set; }
         public virtual Status Status { get; set; }
         public virtual PaymentType PaymentType { get; set; }
         public virtual EmployeeData Employee { get; set; }
-        // public virtual Restaurant Restaurant { get; set; }
+        //public virtual Restaurant Restaurant { get; set; }
         public virtual ICollection<OrderMenuItem> OrderMenuItems { get; set; }
     }
 }
