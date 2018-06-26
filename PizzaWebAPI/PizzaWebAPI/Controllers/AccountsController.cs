@@ -59,6 +59,9 @@ namespace PizzaWebAPI.Controllers
                 return BadRequest();
             }
 
+            if (_context.Accounts.Any(e => e.Login == account.Login)) return BadRequest(new { Login = new string[] { "Login is already taken." } });
+            if (_context.Accounts.Any(e => e.Email == account.Email)) return BadRequest(new { Email = new string[] { "Email has been already used." } });
+
             _context.Entry(account).State = EntityState.Modified;
 
             try
